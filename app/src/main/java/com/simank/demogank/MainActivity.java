@@ -1,5 +1,7 @@
 package com.simank.demogank;
 
+import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private List<GankItem> list;
+    //添加swiperefreshlayout来实现recycleView的下拉刷新事件
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -72,6 +76,22 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
+        //设置swipeRefreshLayout的设置
+        //设置圆形动画颜色
+        swipeRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE,Color.GREEN,Color.BLACK);
+        //设置下拉刷新事件
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                    Toast.makeText(MainActivity.this,"下拉刷新事件",Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
     }
 
     private void initView() {
@@ -79,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         //初始化控件
         textView = (TextView) findViewById(R.id.textView);
         recyclerView = (RecyclerView) findViewById(R.id.recycleView);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
     }
 }
