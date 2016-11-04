@@ -27,6 +27,8 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyHolder>{
 
     private ImageLoader loader;
 
+    private ItemOnClickListener itemOnClickListener;
+
     public MyRecycleAdapter(Context context, List<GankItem> list){
         this.mContext = context;
         this.list = list;
@@ -36,10 +38,30 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyHolder>{
     }
 
     @Override
-    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 
-        View view = mInflater.inflate(R.layout.item_layout,parent,false);
+        final View view = mInflater.inflate(R.layout.item_layout,parent,false);
         MyHolder holder = new MyHolder(view);
+        if(itemOnClickListener != null){
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemOnClickListener.onItemClickListener(v,viewType);
+                }
+            });
+
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    itemOnClickListener.onItemLongClickListener(v,viewType);
+
+                    return false;
+                }
+            });
+        }
+
+
 
 
 
@@ -65,7 +87,10 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyHolder>{
         return list.size();
     }
 
+    public void setItemOnClickListener(ItemOnClickListener listener){
+        this.itemOnClickListener = listener;
 
+    }
 
 
 

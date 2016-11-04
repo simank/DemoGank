@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simank.demogank.com.simank.JsonUtil.StringToBean;
+import com.simank.demogank.com.simank.adapter.ItemOnClickListener;
 import com.simank.demogank.com.simank.adapter.MyRecycleAdapter;
 import com.simank.demogank.com.simank.bean.GankItem;
 import com.simank.demogank.com.simank.volley.VolleyInterface;
@@ -44,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
                 MyRecycleAdapter mAdapter = new MyRecycleAdapter(MainActivity.this, list);
 
+                mAdapter.setItemOnClickListener(new ItemOnClickListener() {
+                    @Override
+                    public void onItemClickListener(View view, int position) {
+                        Toast.makeText(MainActivity.this,"test OnclickListener",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onItemLongClickListener(View view, int position) {
+                        Toast.makeText(MainActivity.this,"test OnLongclickListener",Toast.LENGTH_SHORT).show();
+                    }
+                });
                 recyclerView.setAdapter(mAdapter);
             }
 
