@@ -2,4 +2,6 @@
     <string name="app_name">DemoGank</string>
     <string name="introduction">这是Gank.io中获得的数据</string>
     <string name="demoText">haha</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
